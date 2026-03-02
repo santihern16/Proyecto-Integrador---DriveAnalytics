@@ -1,0 +1,16 @@
+id_vehiculo,marca,modelo,year,tipo,cilindraje,estado,fecha_registro,precio
+1,Toyota,Corolla,2020,Sedan,1800,Disponible,2020-01-15,25000.50
+2,honda,civic,2021,sedan,2000,disponible,2021-03-20,28000
+3,Ford,Mustang,2019,Coupe,5000,Vendido,2019-06-10,45000.75
+4,  Chevrolet  ,Tahoe  ,2022,SUV,5300,En Mantenimiento,2022-08-05,65000
+5,nissan,ALTIMA,2020,Sedan,2500,Disponible,2020-11-22,27500.99
+6,Tesla,Model 3,2023,Sedan,0,Reservado,2023-02-14,55000
+7,BMW,X5,2021,suv,3000,Disponible,2021-07-30,72000.50
+8,Mazda,CX-5,2020,SUV,2500,disponible,2020-09-12,32000
+9,Volkswagen,Golf,2019,Hatchback,1400,Vendido,2019-04-18,22000
+10,Mercedes-Benz,C-Class,2022,Sedan,2000,Disponible,2022-05-25,58000.25
+11,Toyota,RAV4,invalid_year,SUV,2000,Disponible,2021-10-08,35000
+12,Hyundai,Elantra,2020,Sedan,-1600,Disponible,2020-12-03,23000
+13,Kia,Sportage,2021,SUV,2400,Unknown,2021-06-17,29000
+14,Audi,A4,2022,Sedan,2000,Disponible,invalid_date,52000
+15,Subaru,Outback,2020,SUV,2500,Disponible,2020-08-20,-5000
