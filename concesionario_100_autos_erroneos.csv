@@ -1,0 +1,101 @@
+marca,modelo,año,estado,kilometraje,motor,placa,cv,peso_kg,transmisión
+Hnda,Corolla,dos mil veinte,taller,45000,1.8,ABC123,180,1100,automatica
+Chevrolet,Corolla,2020,Disponbile,100 000,1.5,PQR789,90,1350,manul
+Toyta,Sentra,2015,Disponbile,100 000,2.O,KLM456,90,1100,automatica
+Hnda,Rio,2016,disponible,100 000,1.3,BBB222,150,1.200,manual
+Hnda,Civic,2016,disponible,45000,1.0T,KLM456,110,950,manual
+Toyta,Rio,2015,disponible,100 000,1.0,PQR789,90,1.200,auto
+Hnda,Corolla,2020,vendidoo,89000,2.O,ABC123,180,1.200,auto
+Toyta,Onix,2019,Disponbile,89000,1.6,KLM456,90,1.200,manual
+Hnda,Elantra,2017,Disponbile,100 000,1.5,AAA111,ciento veinte,1350,automatica
+Toyta,Corolla,2017,Disponbile,45000,1.3,PQR789,150,1200,manual
+Chevrolet,Focus,2020,vendido,15000,1.3,BBB222,150,1100,manul
+Hyundai,Gol,201O,Disponbile,89000,2.0,AAA111,150,950,manual
+Toyta,Rio,2016,disponible,15000,1.0T,AAA111,ciento veinte,950,manul
+Honda,Corolla,2018,taller,45000,1.6,BBB222,90,1100,auto
+Toyta,Sentra,2019,vendido,15000,1.6,KLM456,150,950,auto
+Hnda,Gol,201O,disponible,89000,1.8,KLM456,ciento veinte,1100,auto
+Toyta,Sentra,2018,disponible,45000,1.0,AAA111,ciento veinte,1100,auto
+Ford,Focus,201O,vendido,15000,1.5,XYZ999,110,1100,manual
+Toyta,Rio,201O,Disponbile,45000,1.0T,XX-999,180,1.200,manual
+Toyta,Elantra,201O,taller,15000,1.8,BBB222,130,1.200,automatica
+Hnda,Rio,2016,vendido,70k,1.0T,123ABC,180,1.200,auto
+Chevrolet,Elantra,2015,vendido,70k,1.6,XX-999,90,1350,manual
+Hnda,Elantra,2016,vendidoo,70k,1.6,BBB222,130,1350,manul
+Hnda,Rio,2016,disponible,15000,1.5,BBB222,90,1200,manul
+Hnda,Civic,dos mil veinte,vendido,89000,2.0,KLM456,180,950,manul
+Toyota,Gol,2019,disponible,15000,1.0T,BBB222,ciento veinte,1.200,automatica
+Toyta,Corolla,2015,disponible,15000,1.8,123ABC,90,1.200,auto
+Toyta,Rio,2019,taller,100 000,1.6,KLM456,180,1100,auto
+Toyota,Onix,2017,disponible,30000,1.6,ABC123,110,1.200,automatica
+Toyota,Focus,2015,vendidoo,15000,1.8,ABC123,180,950,auto
+Toyta,Sentra,201O,taller,30000,1.3,KLM456,130,1200,automatica
+Hnda,Civic,201O,Disponbile,45000,1.6,ABC123,90,950,auto
+Toyta,Civic,201O,Disponbile,89000,1.0,PQR789,ciento veinte,950,auto
+Toyota,Focus,2018,Disponbile,70k,1.6,ABC123,130,1.200,manual
+Kia,Gol,2016,taller,45000,1.0T,ABC123,130,1200,manul
+Hnda,Gol,2018,vendido,70k,1.0T,BBB222,ciento veinte,1200,manul
+Toyta,Onix,dos mil veinte,Disponbile,100 000,1.6,123ABC,110,950,automatica
+Ford,Corolla,2020,Disponbile,45000,1.0T,PQR789,130,1350,automatica
+Toyta,Corolla,dos mil veinte,taller,15000,1.0,XX-999,180,1.200,manual
+Toyta,Onix,2020,taller,70k,1.3,XYZ999,180,1.200,auto
+Toyta,Corolla,2019,vendido,45000,1.3,ABC123,150,950,automatica
+Toyta,Focus,201O,vendidoo,45000,1.6,XX-999,110,950,manul
+Ford,Sentra,2020,taller,89000,1.0T,AAA111,ciento veinte,1350,manul
+Toyta,Elantra,2015,vendido,45000,1.6,BBB222,180,1.200,auto
+Hnda,Elantra,2018,vendido,15000,1.0,123ABC,150,1100,automatica
+Hnda,Onix,2020,vendido,30000,2.0,ABC123,ciento veinte,1200,manual
+Toyta,Corolla,2016,Disponbile,100 000,2.0,AAA111,150,1100,auto
+Toyta,Gol,dos mil veinte,disponible,100 000,1.8,123ABC,90,1100,manul
+Hnda,Elantra,201O,vendidoo,30000,1.6,ABC123,110,1100,automatica
+Chevrolet,Focus,201O,vendido,15000,2.O,XYZ999,180,1.200,auto
+Honda,Gol,201O,vendido,45000,2.0,AAA111,130,1100,automatica
+Toyota,Civic,2016,vendidoo,100 000,1.5,KLM456,130,1350,manual
+Toyta,Rio,2019,taller,70k,1.8,123ABC,ciento veinte,950,manul
+Toyta,Civic,2018,disponible,30000,1.3,ABC123,ciento veinte,1350,auto
+Hnda,Elantra,2015,Disponbile,45000,1.0T,BBB222,180,1350,manual
+Hnda,Focus,2019,taller,89000,2.0,AAA111,130,1100,manual
+Toyta,Rio,2018,disponible,30000,2.0,123ABC,ciento veinte,950,manul
+Hnda,Sentra,2017,Disponbile,15000,1.0,PQR789,90,1.200,automatica
+Hyundai,Sentra,2016,taller,45000,1.3,123ABC,110,1100,manual
+Hnda,Onix,2019,vendidoo,89000,1.5,AAA111,180,1200,manul
+Hnda,Focus,2015,disponible,15000,1.0,PQR789,130,1350,automatica
+Toyta,Onix,2019,vendidoo,15000,1.6,XX-999,130,1100,auto
+Nissan,Gol,2018,vendido,89000,1.5,123ABC,90,950,automatica
+Ford,Rio,2017,vendido,30000,1.8,PQR789,150,1350,automatica
+Hnda,Elantra,2015,vendidoo,100 000,1.5,BBB222,ciento veinte,950,auto
+Toyta,Rio,2018,Disponbile,15000,1.3,XX-999,ciento veinte,1.200,manual
+Ford,Focus,2015,Disponbile,70k,1.0T,AAA111,150,1350,manual
+Hnda,Corolla,dos mil veinte,vendidoo,45000,1.0T,XYZ999,110,950,manual
+Volkswagen,Rio,2017,disponible,70k,1.0T,ABC123,90,1350,automatica
+Ford,Onix,2020,vendidoo,70k,2.0,ABC123,130,1100,manual
+Hnda,Corolla,2020,disponible,45000,2.O,AAA111,130,950,auto
+Ford,Civic,2016,disponible,30000,1.6,XYZ999,ciento veinte,1100,manual
+Toyta,Sentra,2019,vendidoo,70k,2.0,BBB222,110,1200,manual
+Toyta,Rio,2018,disponible,45000,1.0T,BBB222,130,1100,auto
+Honda,Sentra,2019,taller,45000,1.5,ABC123,150,950,manual
+Hnda,Onix,2016,disponible,100 000,2.0,AAA111,130,1350,manual
+Toyta,Focus,2019,vendidoo,100 000,1.3,XYZ999,180,1350,auto
+Nissan,Sentra,dos mil veinte,Disponbile,89000,2.O,AAA111,110,1.200,manul
+Toyota,Civic,2015,vendidoo,100 000,1.6,XX-999,90,1.200,automatica
+Toyta,Onix,2018,Disponbile,70k,1.3,XYZ999,90,1.200,auto
+Hnda,Civic,2016,vendidoo,15000,1.8,BBB222,110,1200,auto
+Hnda,Focus,2017,taller,30000,1.0,PQR789,ciento veinte,1100,auto
+Hnda,Sentra,2020,vendido,89000,1.0,XX-999,180,1350,auto
+Chevrolet,Focus,2020,vendido,70k,1.0,123ABC,110,1350,manul
+Toyta,Sentra,2020,vendidoo,15000,1.6,XYZ999,90,950,manul
+Honda,Rio,2020,vendido,45000,1.8,XYZ999,180,1100,manual
+Hnda,Gol,2019,Disponbile,30000,1.5,XYZ999,150,1350,manul
+Chevrolet,Corolla,201O,taller,70k,1.6,PQR789,130,1100,automatica
+Toyota,Elantra,201O,vendidoo,30000,1.6,XYZ999,150,1100,automatica
+Hnda,Gol,2018,vendido,15000,1.5,AAA111,150,1200,auto
+Toyota,Corolla,201O,vendido,100 000,1.3,PQR789,90,1200,auto
+Toyta,Gol,2015,disponible,15000,1.0T,AAA111,130,1200,manul
+Hnda,Focus,2017,disponible,100 000,2.O,XX-999,130,1350,automatica
+Nissan,Onix,201O,taller,30000,1.0,BBB222,180,1350,manual
+Hnda,Focus,2020,disponible,89000,1.0T,KLM456,ciento veinte,1200,manual
+Toyota,Corolla,201O,taller,30000,1.6,XX-999,90,1.200,manual
+Hnda,Rio,dos mil veinte,vendidoo,70k,1.8,XX-999,110,950,automatica
+Nissan,Civic,2015,taller,70k,1.6,123ABC,90,1200,manual
+Hnda,Focus,2020,disponible,70k,2.0,BBB222,180,1100,manul
+Hnda,Focus,2016,vendido,89000,1.6,XYZ999,130,1100,manul
