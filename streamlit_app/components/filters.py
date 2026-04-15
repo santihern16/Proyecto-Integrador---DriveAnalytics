@@ -15,6 +15,39 @@ from config import FILTERABLE_COLUMNS, COLUMN_LABELS
 from utils.data_loader import get_unique_values, get_column_range
 
 
+def _clear_sidebar_filter_state(df: pd.DataFrame) -> None:
+    """Restablece el estado de los widgets de filtros del sidebar."""
+    if "marca" in df.columns:
+        st.session_state["filter_marca"] = []
+
+    if "estado" in df.columns:
+        st.session_state["filter_estado"] = []
+
+    if "transmisión" in df.columns:
+        st.session_state["filter_transmision"] = []
+
+    if "año" in df.columns:
+        min_año, max_año = get_column_range(df, "año")
+        if pd.notna(min_año) and pd.notna(max_año):
+            st.session_state["filter_año"] = (int(min_año), int(max_año))
+
+    if "precio_cop" in df.columns:
+        min_precio, max_precio = get_column_range(df, "precio_cop")
+        if pd.notna(min_precio) and pd.notna(max_precio):
+            st.session_state["filter_precio"] = (
+                int(min_precio / 1_000_000),
+                int(max_precio / 1_000_000),
+            )
+
+    if "kilometraje" in df.columns:
+        min_km, max_km = get_column_range(df, "kilometraje")
+        if pd.notna(min_km) and pd.notna(max_km):
+            st.session_state["filter_km"] = (
+                int(min_km / 1_000),
+                int(max_km / 1_000),
+            )
+
+
 def render_sidebar_filters(df: pd.DataFrame) -> Dict[str, Any]:
     """
     Renderiza filtros en el sidebar.
@@ -114,8 +147,12 @@ def render_sidebar_filters(df: pd.DataFrame) -> Dict[str, Any]:
     
     # Botón para limpiar filtros
     st.sidebar.divider()
-    if st.sidebar.button("🔄 Limpiar Filtros", use_container_width=True):
-        st.rerun()
+    st.sidebar.button(
+        "🔄 Limpiar Filtros",
+        use_container_width=True,
+        on_click=_clear_sidebar_filter_state,
+        args=(df,),
+    )
     
     return filters
 
