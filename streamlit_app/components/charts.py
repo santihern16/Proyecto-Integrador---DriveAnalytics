@@ -248,9 +248,11 @@ def render_chart(fig: Optional[go.Figure], height: int = 400) -> None:
     if fig is None:
         st.warning("No hay datos suficientes para mostrar este gráfico.")
         return
+
+    fig.update_layout(height=height)
     
     st.plotly_chart(
-        fig, 
+        fig,
         use_container_width=CHART_CONFIG["use_container_width"],
-        height=height
+        config={"responsive": True}
     )
