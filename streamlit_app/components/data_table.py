@@ -5,8 +5,10 @@ Visualización de datos tabulares y detalles de vehículos.
 """
 
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 from typing import Optional, List
+from textwrap import dedent
 
 import sys
 from pathlib import Path
@@ -102,8 +104,7 @@ def render_vehicle_card(vehicle: pd.Series) -> None:
     transmision = vehicle.get("transmisión", "N/A")
     peso = vehicle.get("peso_kg", 0)
     
-    st.markdown(
-        f"""
+    card_html = dedent(f"""
         <div style="
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             border-radius: 15px;
@@ -157,9 +158,9 @@ def render_vehicle_card(vehicle: pd.Series) -> None:
                 <span style="color: #888;">Peso: </span><span style="color: #fff;">{peso} kg</span>
             </div>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+        """).strip()
+
+    components.html(card_html, height=300, scrolling=False)
 
 
 def render_vehicle_list(df: pd.DataFrame, max_items: int = 5) -> None:
