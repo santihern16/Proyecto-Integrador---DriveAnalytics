@@ -25,6 +25,11 @@ from utils import (
     validate_model,
     optimize_decision,
     generate_decision_recommendations,
+    clean_and_prepare_data,
+    identify_behavior_patterns,
+    train_predictive_models,
+    segment_entities,
+    generate_association_rules,
 )
 from components import (
     render_sidebar_filters,
@@ -150,9 +155,10 @@ st.divider()
 # ─────────────────────────────────────────────
 # TABS DE CONTENIDO
 # ─────────────────────────────────────────────
-tab_dashboard, tab_analisis, tab_inventario, tab_simulacion, tab_detalle = st.tabs([
+tab_dashboard, tab_analisis, tab_mineria, tab_inventario, tab_simulacion, tab_detalle = st.tabs([
     "📊 Dashboard",
     "📈 Análisis",
+    "🧠 Minería de Datos",
     "📋 Inventario",
     "🧪 Simulación",
     "🔍 Detalle"
@@ -235,6 +241,209 @@ with tab_analisis:
             stats_trans.columns = ["Cantidad", "Precio Prom."]
             stats_trans["Precio Prom."] = stats_trans["Precio Prom."].apply(lambda x: f"${x:,.0f}")
             st.dataframe(stats_trans, use_container_width=True)
+
+
+# ── TAB: Minería de Datos ───────────────────
+with tab_mineria:
+    st.subheader("🧠 Minería de Datos para Decisiones")
+    st.caption(
+        "Identifica patrones, entrena modelos predictivos, segmenta entidades y descubre reglas de asociación "
+        "sobre el dataset filtrado actual."
+    )
+
+    if df_filtered.empty:
+        st.warning("No hay datos para analizar con los filtros actuales.")
+    else:
+        cleaned_df, quality_report = clean_and_prepare_data(df_filtered)
+
+        st.markdown("#### 1) Calidad de Datos (Limpieza y Transformación)")
+        st.caption(
+            "Qué es: diagnóstico de calidad del dataset. Cómo interpretarlo: observa cuánto se corrige antes de modelar para estimaciones más confiables."
+        )
+        qcol1, qcol2, qcol3, qcol4 = st.columns(4)
+        with qcol1:
+            st.metric(
+                "Registros antes",
+                quality_report["rows_before"],
+                help="Qué es: cantidad original de filas antes de limpiar. Cómo interpretarlo: es tu base inicial para comparar impacto del proceso de calidad.",
+            )
+            st.caption("Qué es: volumen original de datos. Cómo interpretarlo: sirve como referencia de cobertura inicial.")
+        with qcol2:
+            st.metric(
+                "Registros después",
+                quality_report["rows_after"],
+                help="Qué es: filas válidas tras limpieza y control de outliers. Cómo interpretarlo: si baja mucho, revisa filtros o reglas de depuración.",
+            )
+            st.caption("Qué es: volumen usable de datos. Cómo interpretarlo: refleja la base final para análisis y modelos.")
+        with qcol3:
+            st.metric(
+                "Outliers removidos",
+                quality_report["rows_removed_outliers"],
+                help="Qué es: filas descartadas por valores atípicos (IQR). Cómo interpretarlo: niveles altos pueden indicar calidad irregular del origen.",
+            )
+            st.caption("Qué es: anomalías excluidas. Cómo interpretarlo: reduce ruido y sesgo en patrones/modelos.")
+        with qcol4:
+            st.metric(
+                "Nulos corregidos",
+                quality_report["missing_before"] - quality_report["missing_after"],
+                help="Qué es: cantidad de valores faltantes imputados. Cómo interpretarlo: más correcciones implican mayor dependencia de supuestos estadísticos.",
+            )
+            st.caption("Qué es: faltantes completados. Cómo interpretarlo: mejora continuidad del análisis pero conviene monitorear su magnitud.")
+        st.caption(
+            "Se imputan nulos (mediana/moda) y se eliminan outliers con método IQR para mejorar precisión analítica."
+        )
+
+        st.divider()
+        st.markdown("#### 2) Patrones de Comportamiento")
+        st.caption(
+            "Qué es: hallazgos descriptivos recurrentes del inventario. Cómo interpretarlo: prioriza combinaciones o variables con mayor frecuencia y consistencia."
+        )
+        patterns = identify_behavior_patterns(cleaned_df)
+
+        if "patrones_frecuentes" in patterns:
+            st.markdown("**Patrones frecuentes por marca/estado/transmisión**")
+            st.dataframe(patterns["patrones_frecuentes"], use_container_width=True)
+            st.caption("Qué es: combinaciones más repetidas. Cómo interpretarlo: mayor conteo sugiere foco comercial/operativo prioritario.")
+
+        col_pat1, col_pat2 = st.columns(2)
+        with col_pat1:
+            if "tasa_venta_por_marca" in patterns:
+                st.markdown("**Tasa de venta por marca**")
+                tasa_df = patterns["tasa_venta_por_marca"].copy().head(15)
+                if "tasa_venta" in tasa_df.columns:
+                    tasa_df["tasa_venta"] = (tasa_df["tasa_venta"] * 100).round(2).astype(str) + "%"
+                if "precio_promedio" in tasa_df.columns:
+                    tasa_df["precio_promedio"] = tasa_df["precio_promedio"].round(0)
+                st.dataframe(tasa_df, use_container_width=True)
+                st.caption("Qué es: proporción histórica vendida por marca. Cómo interpretarlo: marcas con mayor tasa suelen rotar mejor.")
+
+        with col_pat2:
+            if "correlaciones_relevantes" in patterns:
+                st.markdown("**Correlaciones numéricas más fuertes**")
+                corr_df = patterns["correlaciones_relevantes"].copy()
+                if "correlacion" in corr_df.columns:
+                    corr_df["correlacion"] = corr_df["correlacion"].round(3)
+                st.dataframe(corr_df[["variable_a", "variable_b", "correlacion"]], use_container_width=True)
+                st.caption("Qué es: relación lineal entre variables numéricas. Cómo interpretarlo: cerca de 1/-1 es relación fuerte; cerca de 0, débil.")
+
+        st.divider()
+        st.markdown("#### 3) Modelos Predictivos (Regresión y Árboles)")
+        st.caption(
+            "Qué es: estimación de precio con algoritmos supervisados. Cómo interpretarlo: compara R² y MAE para elegir el modelo más útil."
+        )
+        if st.button(
+            "Entrenar modelos predictivos",
+            key="run_predictive_models",
+            use_container_width=True,
+            help="Qué es: ejecución del entrenamiento de regresión lineal y árbol. Cómo interpretarlo: actualiza métricas de desempeño con el dataset filtrado actual.",
+        ):
+            model_results = train_predictive_models(cleaned_df)
+            if model_results.get("status") == "ok":
+                model_metrics = model_results["metrics"].copy()
+                model_metrics["r2"] = model_metrics["r2"].round(4)
+                model_metrics["mae"] = model_metrics["mae"].apply(format_currency)
+
+                st.success(
+                    f"Modelos entrenados con {model_results['rows_train']} registros de entrenamiento "
+                    f"y {model_results['rows_test']} de prueba."
+                )
+                st.dataframe(model_metrics, use_container_width=True)
+                st.caption("Qué es: resumen de desempeño por modelo. Cómo interpretarlo: mayor R² y menor MAE indican mejor ajuste.")
+                st.markdown("**Muestra de predicciones de precio**")
+                pred_df = model_results["sample_predictions"].copy()
+                for col in ["precio_real", "pred_regresion", "pred_arbol"]:
+                    pred_df[col] = pred_df[col].apply(format_currency)
+                st.dataframe(pred_df, use_container_width=True)
+                st.caption("Qué es: comparación caso a caso entre valor real y predicho. Cómo interpretarlo: brechas grandes señalan segmentos difíciles de modelar.")
+            else:
+                st.warning(model_results.get("message", "No fue posible entrenar modelos con los datos actuales."))
+
+        st.divider()
+        st.markdown("#### 4) Segmentación de Entidades (Clustering)")
+        st.caption(
+            "Qué es: agrupación no supervisada por similitud. Cómo interpretarlo: cada segmento sugiere estrategias diferenciadas de precio y rotación."
+        )
+        n_clusters = st.slider(
+            "Número de segmentos",
+            min_value=2,
+            max_value=7,
+            value=4,
+            step=1,
+            help="Qué es: cantidad de grupos KMeans a formar. Cómo interpretarlo: más segmentos capturan detalle, pero pueden perder claridad de negocio.",
+        )
+        if st.button(
+            "Ejecutar segmentación",
+            key="run_segmentation",
+            use_container_width=True,
+            help="Qué es: ejecución del algoritmo de clustering. Cómo interpretarlo: genera perfiles promedio para diseñar decisiones por grupo.",
+        ):
+            segmentation = segment_entities(cleaned_df, n_clusters=int(n_clusters))
+            if segmentation.get("status") == "ok":
+                st.success(
+                    "Segmentación completada. "
+                    f"Variables usadas: {', '.join(segmentation['features'])}."
+                )
+                profile = segmentation["profile"].copy()
+                if "precio_promedio" in profile.columns:
+                    profile["precio_promedio"] = profile["precio_promedio"].apply(format_currency)
+                if "km_promedio" in profile.columns:
+                    profile["km_promedio"] = profile["km_promedio"].round(0)
+                if "anio_promedio" in profile.columns:
+                    profile["anio_promedio"] = profile["anio_promedio"].round(1)
+                st.dataframe(profile, use_container_width=True)
+                st.caption("Qué es: perfil agregado por segmento. Cómo interpretarlo: compara tamaño, precio y km para priorizar acciones por grupo.")
+            else:
+                st.warning(segmentation.get("message", "No fue posible ejecutar clustering."))
+
+        st.divider()
+        st.markdown("#### 5) Reglas de Asociación")
+        st.caption(
+            "Qué es: relaciones frecuentes entre atributos categóricos. Cómo interpretarlo: reglas con alta confianza y lift>1 son más accionables."
+        )
+        col_rule1, col_rule2 = st.columns(2)
+        with col_rule1:
+            min_support = st.slider(
+                "Soporte mínimo",
+                min_value=0.01,
+                max_value=0.30,
+                value=0.05,
+                step=0.01,
+                help="Qué es: frecuencia mínima de la regla en el dataset. Cómo interpretarlo: soporte alto exige reglas más comunes.",
+            )
+            st.caption("Qué es: proporción mínima de ocurrencia. Cómo interpretarlo: aumenta para reglas robustas, baja para descubrir patrones raros.")
+        with col_rule2:
+            min_confidence = st.slider(
+                "Confianza mínima",
+                min_value=0.10,
+                max_value=0.95,
+                value=0.35,
+                step=0.05,
+                help="Qué es: probabilidad de que ocurra el consecuente dado el antecedente. Cómo interpretarlo: valores altos implican reglas más confiables.",
+            )
+            st.caption("Qué es: fuerza condicional de la regla. Cómo interpretarlo: sube este umbral para quedarte con reglas más precisas.")
+
+        if st.button(
+            "Generar reglas de asociación",
+            key="run_association_rules",
+            use_container_width=True,
+            help="Qué es: cálculo de reglas A -> B con soporte, confianza y lift. Cómo interpretarlo: filtra relaciones útiles para decisión comercial.",
+        ):
+            rules_df = generate_association_rules(
+                cleaned_df,
+                min_support=float(min_support),
+                min_confidence=float(min_confidence),
+                top_n=20,
+            )
+
+            if rules_df.empty:
+                st.warning("No se encontraron reglas con los umbrales seleccionados.")
+            else:
+                show_rules = rules_df.copy()
+                show_rules["soporte"] = (show_rules["soporte"] * 100).round(2).astype(str) + "%"
+                show_rules["confianza"] = (show_rules["confianza"] * 100).round(2).astype(str) + "%"
+                show_rules["lift"] = show_rules["lift"].round(3)
+                st.dataframe(show_rules, use_container_width=True)
+                st.caption("Qué es: ranking de reglas de co-ocurrencia. Cómo interpretarlo: lift>1 indica asociación positiva; lift≈1 sugiere independencia.")
 
 
 # ── TAB: Inventario ──────────────────────────

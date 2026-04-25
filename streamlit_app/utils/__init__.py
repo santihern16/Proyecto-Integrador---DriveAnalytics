@@ -11,6 +11,13 @@ from .simulation import (
     optimize_decision,
     generate_decision_recommendations,
 )
+from .data_mining import (
+    clean_and_prepare_data,
+    identify_behavior_patterns,
+    train_predictive_models,
+    segment_entities,
+    generate_association_rules,
+)
 
 __all__ = [
     "load_data",
@@ -22,4 +29,9 @@ __all__ = [
     "validate_model",
     "optimize_decision",
     "generate_decision_recommendations",
+    "clean_and_prepare_data",
+    "identify_behavior_patterns",
+    "train_predictive_models",
+    "segment_entities",
+    "generate_association_rules",
 ]
